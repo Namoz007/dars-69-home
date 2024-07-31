@@ -25,15 +25,18 @@ class BookBloc extends Bloc<BookEvent,BookState> {
     final dio = Dio();
 
     if (await PermissionService.requestStoragePermission()) {
+      print("kirdi");
       try {
         final fullPath = await _getSavePath(event.book);
 
         if (_checkFileExists(fullPath)) {
+          print("uaafds");
           add(OpenFile(path: fullPath));
           event.book.isDownloaded = true;
           event.book.isLoading = false;
           emit(LoadedBookState(_books));
         } else {
+          print("yuklandi");
           final response = await dio.download(
             event.book.url,
             fullPath,
@@ -43,12 +46,15 @@ class BookBloc extends Bloc<BookEvent,BookState> {
             },
           );
         }
+        print("faylga yuklandi");
       } on DioException catch (e) {
         event.book.isLoading = false;
+        print("dioda xato");
         emit(LoadedBookState(_books));
       } catch (e) {
         event.book.isLoading = false;
         emit(LoadedBookState(_books));
+        print("xatolik kep qopti");
       }
     }
     print("vanihoyat tugadi");
