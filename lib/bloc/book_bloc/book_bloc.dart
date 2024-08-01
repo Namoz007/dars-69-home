@@ -19,6 +19,11 @@ class BookBloc extends Bloc<BookEvent,BookState> {
         super(InitialBookState()) {
     on<AllBooksBookEvent>(getAllListBooks);
     on<DownloadBookEvenet>(_getDownloadBook);
+    on<OpenFile>(_onOpenFile);
+  }
+
+  Future<void> _onOpenFile(OpenFile event, emit) async {
+    await OpenFilex.open(event.path);
   }
 
   void _getDownloadBook(DownloadBookEvenet event, emit) async {
@@ -45,6 +50,9 @@ class BookBloc extends Bloc<BookEvent,BookState> {
               emit(DownloadBookState(count / total));
             },
           );
+          event.book.savePath = fullPath;
+          print("bu fayl yoli ${fullPath}");
+          emit(LoadedBookState(_books));
         }
         print("faylga yuklandi");
       } on DioException catch (e) {
@@ -53,6 +61,7 @@ class BookBloc extends Bloc<BookEvent,BookState> {
         emit(LoadedBookState(_books));
       } catch (e) {
         event.book.isLoading = false;
+        print("bu xatolik $e");
         emit(LoadedBookState(_books));
         print("xatolik kep qopti");
       }

@@ -37,15 +37,15 @@ class _ShowBookState extends State<ShowBook> {
               SizedBox(
                 height: 100,
               ),
-              Container(
-                height: 550,
-                width: 350,
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://i.pinimg.com/originals/37/d6/35/37d6359b1e8340b669e4910359022a51.jpg"))),
-              ),
+              // Container(
+              //   height: 550,
+              //   width: 350,
+              //   decoration: BoxDecoration(
+              //       color: Colors.red,
+              //       image: DecorationImage(
+              //           image: NetworkImage(
+              //               "https://i.pinimg.com/originals/37/d6/35/37d6359b1e8340b669e4910359022a51.jpg"))),
+              // ),
             ],
           ),
         ),
